@@ -19,8 +19,7 @@ export default function Home() {
           <p>
             {/* Get started by editing&nbsp;
             <code className={styles.code}>src/pages/index.js</code> */}
-            Hello I am Jeya.
-
+            Hello I am Jeya Prakash.
           </p>
           <div>
             <a
