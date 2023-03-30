@@ -1,4 +1,5 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Authentication from './auth/authentication';
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
         <title>JP APP</title>
       </Head>
       <div>
-        <center>WELCOME TO THE HOME PAGE</center>
+        <Authentication />
       </div>
     </>
   )
