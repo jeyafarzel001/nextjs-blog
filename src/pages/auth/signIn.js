@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { Box, Button } from "@mui/material"
 import IconButton from '@mui/material/IconButton';
@@ -8,10 +8,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { v4 } from "uuid";
+
+import { AuthContext } from "@/context/auth-context";
 
 
 const SignIn = () => {
     const router = useRouter();
+    const authContext = useContext(AuthContext);
     const USER_DETAILS = 'userDetails';
 
     const [userName, setUserName] = useState('');
@@ -30,7 +34,6 @@ const SignIn = () => {
             return;
         }
         if (userDetails) {
-            console.log("iffffeee", userName, userPassword, userDetails)
             if (userName && userPassword) {
                 const matchUser = userDetails[userName];
                 if (!matchUser) {
@@ -39,8 +42,10 @@ const SignIn = () => {
                     setUserpassword('');
                 }
                 else if (matchUser?.userName === userName && matchUser?.userPassword === userPassword) {
+                    const token = v4();
                     alert("Your Are successfully loged In...");
-                    router.push(`/${userName}/`);
+                    localStorage.setItem(userName, JSON.stringify({ token }))
+                    router.push(`user/${userName}/`);
                 } else {
                     alert("Your password is incorrect");
                     setUserName('');
@@ -49,27 +54,25 @@ const SignIn = () => {
             }
         } else {
             alert("Please sign-up then sign-in");
-            setUserName('');
-            setUserpassword('');
+            router.push(`/`);
         }
 
     }
-
     return <>
-        <Box style={{ textAlign: 'center', border: 'solid', padding: '10px', margin: 'auto', width: 'fit-content' }}>
+        <Box className='sign-in'>
             <div>
-                <h2>Sign-In</h2>
+                <h2>Sign - 🖕n</h2>
             </div>
             <div>
                 <FormControl variant="standard">
-                    <InputLabel htmlFor="standard-adornment-password">User Name</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-password">😎 User Name</InputLabel>
                     <Input type={'text'} value={userName} onChange={(e) => setUserName(e.target.value)} />
                 </FormControl>
 
             </div>
             <div>
                 <FormControl variant="standard">
-                    <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-password">🤫 Password</InputLabel>
                     <Input
                         type={showPassword ? 'text' : 'password'}
                         value={userPassword}

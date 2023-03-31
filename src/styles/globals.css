@@ -1,5 +1,14 @@
 :root {
-  font-family: serif ;
-} 
+  font-family: serif;
+}
 
-
+.sign-up,
+.sign-in {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: center;
+  border: solid skyblue;
+}
