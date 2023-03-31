@@ -28,7 +28,7 @@ const SignUp = () => {
 
     const hadleSignUp = () => {
         const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-        // console.log("eee", userName, userPassword, userDetails)
+        console.log("eee", userName, userPassword, userDetails)
         if (userDetails) {
             const isMatch = Object.keys(userDetails).find((v) => v === userName)
             if (isMatch) {

@@ -4,7 +4,7 @@ const userProfile = () => {
     const router = useRouter();
     return <>
         <div style={{ textAlign: 'right', cursor: 'pointer', margin: '20px' }} onClick={() => router.push('/')}>
-            Home
+            Logout
         </div>
         <h1>
             Welcome ....
