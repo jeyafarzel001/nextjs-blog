@@ -12,6 +12,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const SignIn = () => {
     const router = useRouter();
+    const USER_DETAILS = 'userDetails';
+
     const [userName, setUserName] = useState('');
     const [userPassword, setUserpassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -22,25 +24,33 @@ const SignIn = () => {
     };
 
     const hadleSignIn = () => {
-        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-        console.log("eee", userName, userPassword, userDetails)
+        const userDetails = JSON.parse(localStorage.getItem(USER_DETAILS));
+        if (!userName || !userPassword) {
+            alert("You should fill the both username and password");
+            return;
+        }
         if (userDetails) {
-            if (!userName || !userPassword) {
-                alert("Please fill the username and password");
-                return;
-            }
-            else if (userName && userPassword) {
-                // console.log("success");
+            console.log("iffffeee", userName, userPassword, userDetails)
+            if (userName && userPassword) {
                 const matchUser = userDetails[userName];
-                if (matchUser.userName === userName && matchUser.userPassword === userPassword) {
-                    alert("Your Are successfully loged In...")
-                    router.push(`/${userName}/`)
-                } else {
-                    alert("Your userName or password is incorrect")
+                if (!matchUser) {
+                    alert("The userName does not exist....");
                     setUserName('');
-                    setUserpassword('')
+                    setUserpassword('');
+                }
+                else if (matchUser?.userName === userName && matchUser?.userPassword === userPassword) {
+                    alert("Your Are successfully loged In...");
+                    router.push(`/${userName}/`);
+                } else {
+                    alert("Your password is incorrect");
+                    setUserName('');
+                    setUserpassword('');
                 }
             }
+        } else {
+            alert("Please sign-up then sign-in");
+            setUserName('');
+            setUserpassword('');
         }
 
     }

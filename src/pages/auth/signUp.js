@@ -14,6 +14,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const SignUp = () => {
     const router = useRouter();
+    const USER_DETAILS = 'userDetails';
+
     const [userName, setUserName] = useState('');
     const [userPassword, setUserpassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -27,9 +29,14 @@ const SignUp = () => {
     };
 
     const hadleSignUp = () => {
-        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        const userDetails = JSON.parse(localStorage.getItem(USER_DETAILS));
         console.log("eee", userName, userPassword, userDetails)
-        if (userDetails) {
+
+        if (!userName || !userPassword) {
+            alert("You should fill the both username and password");
+            return;
+        }
+        else if (userDetails) {
             const isMatch = Object.keys(userDetails).find((v) => v === userName)
             if (isMatch) {
                 alert("The user is already exist...")
@@ -37,15 +44,13 @@ const SignUp = () => {
                 setUserpassword('')
                 return;
             }
-            else if (!userName || !userPassword) {
-                alert("Please fill the username and password");
-                return;
-            }
             else if (userName && userPassword) {
-                localStorage.setItem('userDetails', JSON.stringify({ ...userDetails, [userName]: { userName, userPassword } }))
-                router.push('/auth/signIn')
-                // console.log("user------", userDetails, isMatch);
+                localStorage.setItem('userDetails', JSON.stringify({ ...userDetails, [userName]: { userName, userPassword } }));
+                router.push('/auth/signIn');
             }
+        } else {
+            localStorage.setItem(USER_DETAILS, JSON.stringify({ [userName]: { userName, userPassword } }))
+            router.push('/auth/signIn')
         }
 
     }
